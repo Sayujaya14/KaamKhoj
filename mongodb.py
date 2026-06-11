@@ -1,35 +1,114 @@
 from dotenv import load_dotenv
-import os
-
 from pymongo import MongoClient
+import os
 
 load_dotenv()
 
-client = MongoClient(os.getenv("MONGO_URI"))
+# -------------------------
+# Local MongoDB (Required)
+# -------------------------
 
-db = client["nepal_jobs"]
+local_client = MongoClient(
+    os.getenv("LOCAL_MONGO_URI", "mongodb://localhost:27017")
+)
 
-jobs_collection = db["jobs"]
+local_db = local_client["nepal_jobs"]
+local_collection = local_db["jobs"]
 
-# Prevent duplicate URLs
-jobs_collection.create_index("url", unique=True)
+local_collection.create_index(
+    "url",
+    unique=True
+)
+
+print("✅ Local MongoDB Connected")
+
+# -------------------------
+# Atlas MongoDB (Optional)
+# -------------------------
+
+atlas_collection = None
+
+try:
+    atlas_client = MongoClient(
+        os.getenv("MONGO_URI"),
+        serverSelectionTimeoutMS=5000
+    )
+
+    atlas_client.admin.command("ping")
+
+    atlas_db = atlas_client["nepal_jobs"]
+
+    atlas_collection = atlas_db["jobs"]
+
+    atlas_collection.create_index(
+        "url",
+        unique=True
+    )
+
+    print("✅ Atlas Connected")
+
+except Exception as e:
+    print(f"⚠️ Atlas unavailable: {e}")
 
 
 def save_jobs(jobs):
-    inserted = 0
-    updated = 0
+
+    local_inserted = 0
+    local_updated = 0
+
+    atlas_inserted = 0
+    atlas_updated = 0
 
     for job in jobs:
-        result = jobs_collection.update_one(
+
+        # -------------------------
+        # Save to Local MongoDB
+        # -------------------------
+
+        result = local_collection.update_one(
             {"url": job["url"]},
             {"$set": job},
             upsert=True
         )
 
         if result.upserted_id:
-            inserted += 1
+            local_inserted += 1
         else:
-            updated += 1
+            local_updated += 1
 
-    print(f"Inserted: {inserted}")
-    print(f"Updated: {updated}")
+        # -------------------------
+        # Save to Atlas (Optional)
+        # -------------------------
+
+        if atlas_collection:
+
+            try:
+                result = atlas_collection.update_one(
+                    {"url": job["url"]},
+                    {"$set": job},
+                    upsert=True
+                )
+
+                if result.upserted_id:
+                    atlas_inserted += 1
+                else:
+                    atlas_updated += 1
+
+            except Exception as e:
+                print(
+                    f"Atlas save failed for {job['title']}: {e}"
+                )
+
+    print("\n======================")
+    print("LOCAL MONGODB")
+    print("======================")
+    print(f"Inserted : {local_inserted}")
+    print(f"Updated  : {local_updated}")
+
+    if atlas_collection:
+
+        print("\n======================")
+        print("ATLAS")
+        print("======================")
+        print(f"Inserted : {atlas_inserted}")
+        print(f"Updated  : {atlas_updated}")

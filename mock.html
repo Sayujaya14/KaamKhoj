@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>कामखोज</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Noto Sans Devanagari', sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+}
+
+header{
+    background:#d62828;
+    color:white;
+    text-align:center;
+    padding:25px;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+
+header h1{
+    font-size:36px;
+}
+
+header p{
+    margin-top:8px;
+}
+
+.container{
+    width:95%;
+    max-width:1300px;
+    margin:auto;
+    padding:20px;
+}
+
+.tabs{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    margin-bottom:20px;
+}
+
+.tab{
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    white-space:nowrap;
+    background:white;
+    font-weight:600;
+    box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+
+.tab.active{
+    background:#1d4ed8;
+    color:white;
+}
+
+.category-section{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:25px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.category-title{
+    font-size:22px;
+    margin-bottom:15px;
+    color:#1d4ed8;
+}
+
+.categories{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.category{
+    border:none;
+    background:#e2e8f0;
+    padding:10px 18px;
+    border-radius:999px;
+    cursor:pointer;
+}
+
+.category.active{
+    background:#d62828;
+    color:white;
+}
+
+.search-box{
+    width:100%;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    margin-bottom:25px;
+    font-size:16px;
+}
+
+.jobs{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(350px,1fr));
+    gap:20px;
+}
+
+.job-card{
+    background:white;
+    border-radius:12px;
+    padding:18px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.job-card:hover{
+    transform:translateY(-4px);
+}
+
+.job-title{
+    font-size:18px;
+    font-weight:700;
+    color:#111827;
+}
+
+.job-meta{
+    margin-top:10px;
+    color:#6b7280;
+}
+
+.view-btn{
+    margin-top:15px;
+    background:#1d4ed8;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    margin-top:40px;
+    color:#6b7280;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🇳🇵 कामखोज</h1>
+    <p>नेपालका सरकारी तथा निजी जागिर सूचनाहरू</p>
+</header>
+
+<div class="container">
+
+    <!-- Organizations -->
+
+    <div class="tabs">
+
+        <button class="tab active">
+            लोक सेवा आयोग
+        </button>
+
+        <button class="tab">
+            नेपाल टेलिकम
+        </button>
+
+        <button class="tab">
+            नेपाल विद्युत प्राधिकरण
+        </button>
+
+        <button class="tab">
+            राष्ट्रिय वाणिज्य बैंक
+        </button>
+
+        <button class="tab">
+            नेपाल बैंक
+        </button>
+
+    </div>
+
+    <!-- Categories -->
+
+    <div class="category-section">
+
+        <div class="category-title">
+            लोक सेवा आयोग
+        </div>
+
+        <div class="categories">
+
+            <button class="category active">
+                सुरक्षा
+            </button>
+
+            <button class="category">
+                निजामती
+            </button>
+
+            <button class="category">
+                संगठित
+            </button>
+
+            <button class="category">
+                स्वास्थ्य
+            </button>
+
+            <button class="category">
+                शिक्षा
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Search -->
+
+    <input
+        class="search-box"
+        type="text"
+        placeholder="🔍 जागिर खोज्नुहोस्..."
+    >
+
+    <!-- Jobs -->
+
+    <div class="jobs">
+
+        <div class="job-card">
+
+            <div class="job-title">
+                नेपाल प्रहरी प्राविधिक पद
+            </div>
+
+            <div class="job-meta">
+                प्रकाशित मिति: २०८३/०२/१०
+            </div>
+
+            <div class="job-meta">
+                श्रेणी: सुरक्षा
+            </div>
+
+            <button class="view-btn">
+                विवरण हेर्नुहोस्
+            </button>
+
+        </div>
+
+        <div class="job-card">
+
+            <div class="job-title">
+                शाखा अधिकृत खुला प्रतियोगिता
+            </div>
+
+            <div class="job-meta">
+                प्रकाशित मिति: २०८३/०२/०८
+            </div>
+
+            <div class="job-meta">
+                श्रेणी: निजामती
+            </div>
+
+            <button class="view-btn">
+                विवरण हेर्नुहोस्
+            </button>
+
+        </div>
+
+        <div class="job-card">
+
+            <div class="job-title">
+                कम्प्युटर अपरेटर
+            </div>
+
+            <div class="job-meta">
+                प्रकाशित मिति: २०८३/०२/०५
+            </div>
+
+            <div class="job-meta">
+                श्रेणी: संगठित
+            </div>
+
+            <button class="view-btn">
+                विवरण हेर्नुहोस्
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 कामखोज | नेपालका रोजगार सूचनाहरू
+</footer>
+
+</body>
+</html>
